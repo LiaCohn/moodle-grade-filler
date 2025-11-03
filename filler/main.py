@@ -8,6 +8,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 import os
 import sys
 import pandas as pd
@@ -16,7 +17,7 @@ from urllib.parse import urlparse, parse_qs
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from config import username, psw
-from consts.consts import LOGIN, NOTIFICATIONS_CB, SAVE,CHROME_DRIVER
+from consts.consts import LOGIN, NOTIFICATIONS_CB, SAVE
 from consts.exceptions import FillerException
 
 
@@ -27,7 +28,7 @@ from consts.exceptions import FillerException
 
 
 def login():
-    s = Service(CHROME_DRIVER)
+    s = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=s)
     driver.get("https://moodle.ruppin.ac.il/login/index.php")
     username_field = driver.find_element(By.ID, "username")
@@ -200,7 +201,7 @@ def grade_filler(task_nums, task_codes, path, course_name):
 
     for task_num, task_code in zip(task_nums, task_codes):
         try:
-            s = Service("C:\\chromedriver.exe")
+            s = Service(ChromeDriverManager().install())
             driver = webdriver.Chrome(service=s)
             driver.maximize_window()
             driver.implicitly_wait(10)  # Implicit wait

@@ -8,13 +8,14 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 import os
 import pandas as pd
 import time
 from urllib.parse import urlparse, parse_qs
 import concurrent.futures
 from config import username, psw
-from consts.consts import LOGIN, NOTIFICATIONS_CB, SAVE,CHROME_DRIVER
+from consts.consts import LOGIN, NOTIFICATIONS_CB, SAVE
 from consts.exceptions import FillerException
 from datetime import datetime
 
@@ -25,7 +26,7 @@ class Filler:
         self.task_nums = task_nums
         self.path = path
         self.course_name = course_name
-        s = Service(CHROME_DRIVER)
+        s = Service(ChromeDriverManager().install())
         self.driver = webdriver.Chrome(service=s)
         self.error_log_file = "error_log.txt"
 

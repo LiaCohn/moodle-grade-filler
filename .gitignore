@@ -3,3 +3,6 @@
 classes.py
 courses.db
 error_log.txt
+__pycache__/
+*.pyc
+.DS_Store
